@@ -8,27 +8,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { --accent: #3b82f6; --bg: #050505; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: #f2f2f2; scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: #f2f2f2; scroll-behavior: smooth; overflow-x: hidden; }
+        
+        /* 沉浸式布局：调整最大宽度 */
+        .container-custom { max-width: 1440px; margin: 0 auto; }
+
         .bento-card { background: #0D0D0D; border: 1px solid #1A1A1A; border-radius: 24px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; position: relative; cursor: pointer; }
         .bento-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 700; line-height: 1; letter-spacing: -0.04em; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-        .hero-tagline { font-size: clamp(1.2rem, 3vw, 2rem); font-weight: 600; color: var(--accent); margin-top: 1.5rem; }
+        
+        .hero-title { font-size: clamp(3rem, 6vw, 5rem); font-weight: 700; line-height: 1; letter-spacing: -0.04em; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .hero-tagline { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 600; color: var(--accent); margin-top: 1.5rem; }
         .hero-overlay { background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.4) 50%, rgba(5,5,5,0) 100%); }
+        
         .btn-primary { background: var(--accent); color: white; border-radius: 14px; padding: 12px 24px; font-weight: 600; display: inline-flex; align-items: center; transition: all 0.2s; }
         .btn-primary:hover { filter: brightness(1.2); transform: scale(1.02); }
-        
-        /* Modal Styles */
-        #modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); z-index: 50; padding: 20px; align-items: center; justify-content: center; }
-        #modal-content { background: #121212; border: 1px solid #222; max-width: 700px; width: 100%; max-height: 85vh; overflow-y: auto; border-radius: 32px; padding: 40px; position: relative; }
-        .close-modal { position: absolute; top: 20px; right: 20px; color: #555; cursor: pointer; font-size: 24px; }
-        .close-modal:hover { color: #fff; }
+
+        /* Scheme A: Side Drawer Styles */
+        #drawer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 50; transition: opacity 0.3s; }
+        #side-drawer { position: fixed; top: 0; right: 0; height: 100%; width: 100%; max-width: 500px; background: #0f0f0f; border-left: 1px solid #222; z-index: 60; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 60px 40px; overflow-y: auto; box-shadow: -20px 0 50px rgba(0,0,0,0.8); }
+        #side-drawer.open { transform: translateX(0); }
+        .close-drawer { position: absolute; top: 25px; left: 25px; color: #555; cursor: pointer; font-size: 28px; transition: color 0.2s; }
+        .close-drawer:hover { color: #fff; }
+
+        /* 内容板块样式 */
+        .journal-item { border-bottom: 1px solid #1a1a1a; padding: 12px 0; transition: color 0.2s; }
+        .journal-item:hover { color: var(--accent); }
     </style>
 </head>
-<body class="p-4 md:p-12">
-    <div class="max-w-6xl mx-auto space-y-4">
-        <!-- Header & Hero -->
+<body class="p-4 md:p-8">
+    <div class="container-custom space-y-4">
+        
+        <!-- SECTION 1: Header & Hero -->
         <header class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="md:col-span-3 bento-card min-h-[500px] flex flex-col justify-end p-8 md:p-14 relative" style="cursor: default;">
+            <div class="md:col-span-3 bento-card min-h-[550px] flex flex-col justify-end p-8 md:p-14 relative" style="cursor: default;">
                 <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=2000');"></div>
                 <div class="absolute inset-0 hero-overlay"></div>
                 <div class="relative z-10">
@@ -39,10 +51,11 @@
             </div>
 
             <div class="flex flex-col gap-4">
+                <!-- Connect Tile -->
                 <div class="bento-card p-8 flex-1 flex flex-col justify-between" style="cursor: default;">
                     <div>
                         <span class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em]">Direct Connect</span>
-                        <div class="mt-8 space-y-5">
+                        <div class="mt-6 space-y-4">
                             <a href="https://x.com/realvita9" target="_blank" class="flex items-center gap-4 text-sm font-medium hover:text-blue-400 transition-all">
                                 <span class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">𝕏</span> Twitter / X
                             </a>
@@ -51,46 +64,40 @@
                             </a>
                         </div>
                     </div>
-                    <a href="https://calendly.com/yvonnecheng9/30min" target="_blank" class="btn-primary mt-8 justify-center">Book Session ➔</a>
+                    <a href="https://calendly.com/yvonnecheng9/30min" target="_blank" class="btn-primary mt-6 justify-center">Book Session ➔</a>
                 </div>
-                <!-- Newsletter Section (Updated as per Image) -->
-                <div class="bento-card p-8 bg-blue-900/5 border-blue-900/20" style="cursor: default;">
-                    <div class="text-blue-500 text-2xl mb-4">📧</div>
-                    <h3 class="text-white text-xl font-bold mb-2">The GTM Guidebook</h3>
-                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">Modular SOPs & Growth Hacks delivered for AI-native founders.</p>
-                    <input type="email" placeholder="Enter email" class="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-sm mb-3 focus:outline-none focus:border-blue-500">
-                    <button class="w-full btn-primary justify-center text-sm">Join Newsletter <span class="ml-2">›</span></button>
+                
+                <!-- Content / Journal Tile (New Purpose) -->
+                <div class="bento-card p-8 bg-white/[0.02]" style="cursor: default;">
+                    <h3 class="text-white text-xs font-bold uppercase tracking-widest mb-4 opacity-50">Latest Insights</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="journal-item cursor-pointer">The Future of AI Vibe Coding</div>
+                        <div class="journal-item cursor-pointer">Building Advocate Engines for Startups</div>
+                        <div class="journal-item cursor-pointer">Zero-to-One: The Lean Arbitrage SOP</div>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <!-- Core Capabilities -->
-        <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="bento-card p-8" onclick="showDetail('cap1')">
-                <div class="text-blue-500 mb-6 text-2xl">🎯</div>
-                <h3 class="font-bold text-white mb-1">Brand Strategy</h3>
-                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Narrative ｜ Deck</p>
+        <!-- SECTION 2: Service Offerings (Moved Up) -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bento-card p-8 border-l-4 border-l-blue-600" onclick="showSideDetail('srv1')">
+                <p class="text-[9px] font-black text-gray-600 tracking-widest uppercase mb-1">The Insight</p>
+                <h4 class="text-xl font-bold text-white italic">GTM Guidebook</h4>
             </div>
-            <div class="bento-card p-8" onclick="showDetail('cap2')">
-                <div class="text-blue-500 mb-6 text-2xl">⚙️</div>
-                <h3 class="font-bold text-white mb-1">Growth Ops</h3>
-                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Loops ｜ Cold Start</p>
+            <div class="bento-card p-8 border-l-4 border-l-blue-600" onclick="showSideDetail('srv2')">
+                <p class="text-[9px] font-black text-gray-600 tracking-widest uppercase mb-1">The Clarity</p>
+                <h4 class="text-xl font-bold text-white italic">Strategic Advisory</h4>
             </div>
-            <div class="bento-card p-8" onclick="showDetail('cap3')">
-                <div class="text-blue-500 mb-6 text-2xl">🌐</div>
-                <h3 class="font-bold text-white mb-1">Ecosystem</h3>
-                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">KOL ｜ Partnerships</p>
-            </div>
-            <div class="bento-card p-8" onclick="showDetail('cap4')">
-                <div class="text-blue-500 mb-6 text-2xl">💡</div>
-                <h3 class="font-bold text-white mb-1">Advisory</h3>
-                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Embedded SOPs</p>
+            <div class="bento-card p-8 border-l-4 border-l-blue-600" onclick="showSideDetail('srv3')">
+                <p class="text-[9px] font-black text-gray-600 tracking-widest uppercase mb-1">The Traction</p>
+                <h4 class="text-xl font-bold text-white italic">Growth Partnership</h4>
             </div>
         </section>
 
-        <!-- Case Studies -->
+        <!-- SECTION 3: Case Studies -->
         <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bento-card p-10 flex flex-col justify-between min-h-[320px]" onclick="showDetail('theme1')">
+            <div class="bento-card p-10 flex flex-col justify-between min-h-[320px]" onclick="showSideDetail('theme1')">
                 <div>
                     <span class="text-[9px] font-black text-blue-500 border border-blue-500/30 px-2 py-1 rounded-md uppercase tracking-widest">Theme 01</span>
                     <h3 class="text-2xl font-bold text-white mt-6 mb-4 leading-tight">0-to-1 Cold Start & Advocate Engines</h3>
@@ -98,7 +105,7 @@
                 </div>
                 <div class="text-[9px] text-gray-600 font-bold uppercase tracking-widest mt-6">#TRACTION #SYSTEMS</div>
             </div>
-            <div class="bento-card p-10 flex flex-col justify-between min-h-[320px]" onclick="showDetail('theme2')">
+            <div class="bento-card p-10 flex flex-col justify-between min-h-[320px]" onclick="showSideDetail('theme2')">
                 <div>
                     <span class="text-[9px] font-black text-blue-500 border border-blue-500/30 px-2 py-1 rounded-md uppercase tracking-widest">Theme 02</span>
                     <h3 class="text-2xl font-bold text-white mt-6 mb-4 leading-tight">Strategic Narrative & Positioning</h3>
@@ -106,7 +113,7 @@
                 </div>
                 <div class="text-[9px] text-gray-600 font-bold uppercase tracking-widest mt-6">#STORYTELLING #PMF</div>
             </div>
-            <div class="bento-card p-10 flex flex-col justify-between min-h-[320px]" onclick="showDetail('theme3')">
+            <div class="bento-card p-10 flex flex-col justify-between min-h-[320px]" onclick="showSideDetail('theme3')">
                 <div>
                     <span class="text-[9px] font-black text-blue-500 border border-blue-500/30 px-2 py-1 rounded-md uppercase tracking-widest">Theme 03</span>
                     <h3 class="text-2xl font-bold text-white mt-6 mb-4 leading-tight">Zero-to-One Lean Arbitrage</h3>
@@ -116,37 +123,57 @@
             </div>
         </section>
 
-        <!-- Testimonial -->
+        <!-- SECTION 4: Testimonial -->
         <section class="bento-card p-16 md:p-24 text-center" style="cursor: default;">
             <p class="text-2xl md:text-3xl italic text-gray-200 font-light leading-snug max-w-4xl mx-auto">"Yvonne didn't just give us a marketing plan; she built an advocate engine. The systems she put in place are now the core of our growth strategy."</p>
             <p class="text-blue-500 font-bold tracking-[0.4em] text-xs mt-12 uppercase">— Founder, AI Vibe Coding Startup</p>
         </section>
 
-        <!-- Service Offerings (Labels removed, Modals enabled) -->
-        <section class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-12">
-            <div class="bento-card p-8 border-l-4 border-l-blue-600" onclick="showDetail('srv1')">
-                <p class="text-[9px] font-black text-gray-600 tracking-widest uppercase mb-1">The Insight</p>
-                <h4 class="text-lg font-bold text-white italic">GTM Guidebook</h4>
+        <!-- SECTION 5: Core Capabilities (Moved Down) -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bento-card p-8" onclick="showSideDetail('cap1')">
+                <div class="text-blue-500 mb-6 text-2xl">🎯</div>
+                <h3 class="font-bold text-white mb-1 text-sm md:text-base">Brand Strategy</h3>
+                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Narrative ｜ Deck</p>
             </div>
-            <div class="bento-card p-8 border-l-4 border-l-blue-600" onclick="showDetail('srv2')">
-                <p class="text-[9px] font-black text-gray-600 tracking-widest uppercase mb-1">The Clarity</p>
-                <h4 class="text-lg font-bold text-white italic">Strategic Advisory</h4>
+            <div class="bento-card p-8" onclick="showSideDetail('cap2')">
+                <div class="text-blue-500 mb-6 text-2xl">⚙️</div>
+                <h3 class="font-bold text-white mb-1 text-sm md:text-base">Growth Ops</h3>
+                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Loops ｜ Cold Start</p>
             </div>
-            <div class="bento-card p-8 border-l-4 border-l-blue-600" onclick="showDetail('srv3')">
-                <p class="text-[9px] font-black text-gray-600 tracking-widest uppercase mb-1">The Traction</p>
-                <h4 class="text-lg font-bold text-white italic">Growth Partnership</h4>
+            <div class="bento-card p-8" onclick="showSideDetail('cap3')">
+                <div class="text-blue-500 mb-6 text-2xl">🌐</div>
+                <h3 class="font-bold text-white mb-1 text-sm md:text-base">Ecosystem</h3>
+                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">KOL ｜ Partnerships</p>
+            </div>
+            <div class="bento-card p-8" onclick="showSideDetail('cap4')">
+                <div class="text-blue-500 mb-6 text-2xl">💡</div>
+                <h3 class="font-bold text-white mb-1 text-sm md:text-base">Advisory</h3>
+                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Embedded SOPs</p>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Final Newsletter CTA (At the bottom) -->
+        <section class="bento-card p-12 md:p-20 bg-blue-950/10 border-blue-500/20" style="cursor: default;">
+            <div class="max-w-2xl mx-auto text-center space-y-6">
+                <div class="text-blue-500 text-4xl inline-block">📧</div>
+                <h3 class="text-white text-3xl font-bold">The GTM Guidebook</h3>
+                <p class="text-gray-400 text-lg">Modular SOPs & Growth Hacks delivered for AI-native founders.</p>
+                <div class="flex flex-col md:flex-row gap-3 pt-4">
+                    <input type="email" placeholder="Enter email" class="flex-1 bg-black/40 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-blue-500">
+                    <button class="btn-primary justify-center px-10">Join Newsletter <span class="ml-2">›</span></button>
+                </div>
             </div>
         </section>
 
         <footer class="text-center text-gray-700 text-[10px] font-bold tracking-[0.5em] uppercase py-10">© 2024 YVONNE CHENG ｜ GLOBAL NARRATIVE ｜ SCALABLE SYSTEMS</footer>
     </div>
 
-    <!-- Modal Container -->
-    <div id="modal-overlay" onclick="closeModal()">
-        <div id="modal-content" onclick="event.stopPropagation()">
-            <span class="close-modal" onclick="closeModal()">×</span>
-            <div id="modal-body"></div>
-        </div>
+    <!-- Side Drawer Component -->
+    <div id="drawer-overlay" onclick="closeSideDrawer()"></div>
+    <div id="side-drawer">
+        <span class="close-drawer" onclick="closeSideDrawer()">×</span>
+        <div id="drawer-body"></div>
     </div>
 
     <script>
@@ -154,7 +181,7 @@
             cap1: `<h2>Brand & Market Strategy</h2><p>Define brand positioning and transform abstract AI ideas into clear stories for users and investors.</p><ul><li><b>Brand Positioning:</b> Establishing a unique market category.</li><li><b>Narrative Design:</b> Crafting the core story.</li><li><b>Pitch Deck:</b> Visual and logical storytelling for stakeholders.</li><li><b>Content Strategy:</b> Multi-channel communication architecture.</li></ul>`,
             cap2: `<h2>Growth & Operations System</h2><p>Build growth loops and execution frameworks to turn chaos into sustainable traction.</p><ul><li><b>Growth Loop:</b> Self-reinforcing user acquisition systems.</li><li><b>Cold Start:</b> Overcoming the 0-to-1 inertia.</li><li><b>Campaign Planning:</b> High-impact launch marketing.</li><li><b>Execution System:</b> Modular SOPs for teams.</li></ul>`,
             cap3: `<h2>Ecosystem & Partnerships</h2><p>Expand market presence through influential marketing and strategic collaborations.</p><ul><li><b>Influential Marketing (KOL):</b> Trust-based growth.</li><li><b>Ecosystem Growth:</b> Synergistic network expansions.</li><li><b>Co-branding:</b> Narrative-led partnerships.</li><li><b>Community Partnerships:</b> Deep-rooted engagement.</li></ul>`,
-            cap4: `<h2>Operation Strategy & Embedded Advisory</h2><p>Hands-on, embedded support delivered through an ongoing partnership to translate operational and growth strategy into modular, internal-ready systems — enabling teams to execute, adapt, and scale independently.</p><ul><li><b>Embedded Advisory:</b> Working inside the team.</li><li><b>Capability Transfer:</b> Mentoring for independence.</li><li><b>Execution Systems:</b> Custom-built operational playbooks.</li></ul>`,
+            cap4: `<h2>Operation Strategy & Embedded Advisory</h2><p>Hands-on, embedded support delivered through an ongoing partnership to translate operational and growth strategy into modular, internal-ready systems — enabling teams to execute, adapt, and scale independently.</p><ul><li><b>Operation Strategy:</b> High-level roadmap design.</li><li><b>Embedded Advisory:</b> Working inside the team.</li><li><b>Capability Transfer:</b> Mentoring for independence.</li></ul>`,
             theme1: `<h2>Theme 01: Cold Start & Advocate Engines</h2><div class="section"><h3>The Challenge</h3><p>Turning dormant or silent communities into active growth levers. Typical for startups with traction but low engagement.</p></div><div class="section"><h3>The System</h3><p>Designed multi-channel cold start matrices (AI Vibe Coding) and localized GTM squads (Prediction Platform) to spark UGC and ambassador frameworks.</p></div><div class="section"><h3>The Result</h3><p>Established recognizable ecosystem "vibes", increased retention, and created a self-sustaining core of brand advocates.</p></div>`,
             theme2: `<h2>Theme 02: Strategic Narrative & Positioning</h2><div class="section"><h3>The Challenge</h3><p>AI/Tech projects that are too "hard" for the market to understand, lacking emotional resonance or differentiation.</p></div><div class="section"><h3>The System</h3><p>Developed "Identity Engineering" for technical stakeholders and Identity Architecture for lifestyle brands to command premium market attention.</p></div><div class="section"><h3>The Result</h3><p>Enhanced brand equity and investor confidence, enabling market entry with clear, high-stakes storytelling.</p></div>`,
             theme3: `<h2>Theme 03: Zero-to-One Lean Arbitrage</h2><div class="section"><h3>The Challenge</h3><p>Validating business models rapidly without high overhead or long content seeding periods.</p></div><div class="section"><h3>The System</h3><p>Deployed Lean Validation SOPs and Narrative-Driven Viral Engines to capture high-intent attention and lead interception.</p></div><div class="section"><h3>The Result</h3><p>Achieved 1% high-intent lead conversion rates and immediate revenue scalability within 30 days via modularized conversion loops.</p></div>`,
@@ -163,25 +190,31 @@
             srv3: `<h2>Growth & Narrative Partnership</h2><p>An ongoing, flexible partnership acting as a strategic lead. We deliver:</p><ul><li><b>Branding:</b> Positioning Frameworks & Narrative Systems.</li><li><b>Marketing:</b> Campaign Planning & KOL Strategy.</li><li><b>Operations:</b> Community Architecture & Scalable SOPs.</li></ul>`
         };
 
-        function showDetail(id) {
-            const body = document.getElementById('modal-body');
+        function showSideDetail(id) {
+            const body = document.getElementById('drawer-body');
             body.innerHTML = details[id];
-            document.getElementById('modal-overlay').style.display = 'flex';
+            document.getElementById('drawer-overlay').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('side-drawer').classList.add('open');
+            }, 10);
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('modal-overlay').style.display = 'none';
+        function closeSideDrawer() {
+            document.getElementById('side-drawer').classList.remove('open');
+            setTimeout(() => {
+                document.getElementById('drawer-overlay').style.display = 'none';
+            }, 300);
             document.body.style.overflow = 'auto';
         }
     </script>
     <style>
-        #modal-body h2 { font-size: 2rem; font-weight: 700; margin-bottom: 20px; color: #fff; }
-        #modal-body h3 { font-size: 1.25rem; font-weight: 600; margin-top: 24px; color: var(--accent); }
-        #modal-body p { color: #a1a1a1; line-height: 1.6; margin-bottom: 16px; }
-        #modal-body ul { list-style: disc; margin-left: 20px; color: #a1a1a1; }
-        #modal-body li { margin-bottom: 8px; }
-        .section { border-bottom: 1px solid #222; padding-bottom: 20px; margin-bottom: 20px; }
+        #drawer-body h2 { font-size: 2.25rem; font-weight: 700; margin-bottom: 24px; color: #fff; line-height: 1.1; }
+        #drawer-body h3 { font-size: 1.25rem; font-weight: 600; margin-top: 30px; color: var(--accent); }
+        #drawer-body p { color: #ccc; line-height: 1.6; margin-bottom: 16px; font-size: 1.1rem; }
+        #drawer-body ul { list-style: disc; margin-left: 20px; color: #ccc; margin-top: 10px; }
+        #drawer-body li { margin-bottom: 12px; }
+        .section { border-bottom: 1px solid #222; padding-bottom: 24px; margin-bottom: 24px; }
     </style>
 </body>
 </html>
