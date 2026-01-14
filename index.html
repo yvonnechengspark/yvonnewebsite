@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yvonne Cheng | Narrative & Systems Advisor</title>
+    <!-- 使用 Tailwind CDN 快速构建 UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --accent: #3b82f6; --bg: #050505; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: #f2f2f2; scroll-behavior: smooth; }
+        .bento-card { background: #0D0D0D; border: 1px solid #1A1A1A; border-radius: 24px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; position: relative; }
+        .bento-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        
+        /* 极致的 Hero 文字效果 */
+        .hero-title { font-size: clamp(3rem, 8vw, 6rem); font-weight: 700; line-height: 1; letter-spacing: -0.04em; color: #fff; text-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .hero-tagline { font-size: clamp(1.2rem, 3vw, 2rem); font-weight: 600; color: var(--accent); margin-top: 1.5rem; }
+        .hero-overlay { background: linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,0.4) 50%, rgba(5,5,5,0) 100%); }
+        
+        .btn-primary { background: var(--accent); color: white; border-radius: 14px; padding: 12px 24px; font-weight: 600; display: inline-flex; align-items: center; transition: all 0.2s; }
+        .btn-primary:hover { filter: brightness(1.2); transform: scale(1.02); }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+    <div class="max-w-6xl mx-auto space-y-4">
+        
+        <!-- 核心板块：Hero & 社交 -->
+        <header class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- 仿 Bento 大图格子 -->
+            <div class="md:col-span-3 bento-card min-h-[500px] flex flex-col justify-end p-8 md:p-14 relative">
+                <!-- 山脉背景图：直接使用高质量 Unsplash 镜像，确保 Public 可见 -->
+                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=2000');"></div>
+                <div class="absolute inset-0 hero-overlay"></div>
+                
+                <div class="relative z-10">
+                    <h1 class="hero-title">Yvonne Cheng</h1>
+                    <p class="hero-tagline">Scaling AI-Native Visions through Narrative & Systems</p>
+                    <p class="text-gray-400 mt-4 max-w-lg text-lg font-light leading-relaxed">
+                        Strategy for founders who need to turn complex AI products into scalable market leaders.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 右侧联系格子 -->
+            <div class="flex flex-col gap-4">
+                <div class="bento-card p-8 flex-1 flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-[0.3em]">Direct Connect</span>
+                        <div class="mt-8 space-y-5">
+                            <a href="https://x.com/realvita9" target="_blank" class="flex items-center gap-4 text-sm font-medium hover:text-blue-400 transition-all">
+                                <span class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">𝕏</span> Twitter / X
+                            </a>
+                            <a href="https://xhslink.com/m/9dDiyrWJ2Hn" target="_blank" class="flex items-center gap-4 text-sm font-medium hover:text-red-400 transition-all">
+                                <span class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">📕</span> 小红书
+                            </a>
+                        </div>
+                    </div>
+                    <a href="https://calendly.com/yvonnecheng9/30min" target="_blank" class="btn-primary mt-8 justify-center">
+                        Book Session ➔
+                    </a>
+                </div>
+                <div class="bento-card p-6 border-blue-900/30 bg-blue-900/5">
+                    <h3 class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-1">Newsletter</h3>
+                    <p class="text-sm text-gray-400 font-medium italic">"The GTM Guidebook" for AI Founders.</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 能力矩阵：4小格 -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bento-card p-8 group">
+                <div class="text-blue-500 mb-6 text-2xl">🎯</div>
+                <h3 class="font-bold text-white mb-1">Brand Strategy</h3>
+                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Narrative ｜ Deck</p>
+            </div>
+            <div class="bento-card p-8">
+                <div class="text-blue-500 mb-6 text-2xl">⚙️</div>
+                <h3 class="font-bold text-white mb-1">Growth Ops</h3>
+                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Loops ｜ Cold Start</p>
+            </div>
+            <div class="bento-card p-8">
+                <div class="text-blue-500 mb-6 text-2xl">🌐</div>
+                <h3 class="font-bold text-white mb-1">Ecosystem</h3>
+                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">KOL ｜ Partnerships</p>
+            </div>
+            <div class="bento-card p-8">
+                <div class="text-blue-500 mb-6 text-2xl">💡</div>
+                <h3 class="font-bold text-white mb-1">Advisory</h3>
+                <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Embedded SOPs</p>
+            </div>
+        </section>
+
+        <!-- 核心案例：3大格 -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bento-card p-10 flex flex-col justify-between min-h-[320px]">
+                <div>
+                    <span class="text-[9px] font-black text-blue-500 border border-blue-500/30 px-2 py-1 rounded-md uppercase tracking-widest">Theme 01</span>
+                    <h3 class="text-2xl font-bold text-white mt-6 mb-4 leading-tight">0-to-1 Cold Start & Advocate Engines</h3>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Turning silent communities into vibrant UGC-driven ecosystems for AI startups.</p>
+                </div>
+                <div class="text-[9px] text-gray-600 font-bold uppercase tracking-widest mt-6">#TRACTION #SYSTEMS</div>
+            </div>
+            <div class="bento-card p-10 flex flex-col justify-between min-h-[320px]">
+                <div>
+                    <span class="text-[9px] font-black text-blue-500 border border-blue-500/30 px-2 py-1 rounded-md uppercase tracking-widest">Theme 02</span>
+                    <h3 class="text-2xl font-bold text-white mt-6 mb-4 leading-tight">Strategic Narrative & Positioning</h3>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">Defining the "Soul" of tech brands for market differentiation and premium value.</p>
+                </div>
+                <div class="text-[9px] text-gray-600 font-bold uppercase tracking-widest mt-6">#STORYTELLING #PMF</div>
+            </div>
+            <div class="bento-card p-10 flex flex-col justify-between min-h-[320px]">
+                <div>
+                    <span class="text-[9px] font-black text-blue-500 border border-blue-500/30 px-2 py-1 rounded-md uppercase tracking-widest">Theme 03</span>
+                    <h3 class="text-2xl font-bold text-white mt-6 mb-4 leading-tight">Zero-to-One Lean Arbitrage</h3>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed">High-intensity growth hacking and modular SOPs for rapid conversion loops.</p>
+                </div>
+                <div class="text-[9px] text-gray-600 font-bold uppercase tracking-widest mt-6">#GROWTH_HACKING #SOP</div>
+            </div>
+        </section>
+
+        <!-- 用户证言：大横幅 -->
+        <section class="bento-card p-16 md:p-24 text-center">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-blue-500"></div>
+            <p class="text-2xl md:text-3xl italic text-gray-200 font-light leading-snug max-w-4xl mx-auto">
+                "Yvonne didn't just give us a marketing plan; she built an advocate engine. The systems she put in place are now the core of our growth strategy."
+            </p>
+            <p class="text-blue-500 font-bold tracking-[0.4em] text-xs mt-12 uppercase">— Founder, AI Vibe Coding Startup</p>
+        </section>
+
+        <!-- 服务阶梯 -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4 pb-12">
+            <div class="bento-card p-8 border-l-4 border-l-blue-600">
+                <p class="text-[9px] font-black text-gray-600 tracking-widest uppercase mb-1">L1: Insight</p>
+                <h4 class="text-lg font-bold text-white italic">GTM Guidebook</h4>
+            </div>
+            <div class="bento-card p-8 border-l-4 border-l-blue-600">
+                <p class="text-[9px] font-black text-gray-600 tracking-widest uppercase mb-1">L2: Clarity</p>
+                <h4 class="text-lg font-bold text-white italic">Strategic Advisory</h4>
+            </div>
+            <div class="bento-card p-8 border-l-4 border-l-blue-600">
+                <p class="text-[9px] font-black text-gray-600 tracking-widest uppercase mb-1">L3: Traction</p>
+                <h4 class="text-lg font-bold text-white italic">Growth Partnership</h4>
+            </div>
+        </section>
+
+        <footer class="text-center text-gray-700 text-[10px] font-bold tracking-[0.5em] uppercase py-10">
+            © 2024 YVONNE CHENG ｜ GLOBAL NARRATIVE ｜ SCALABLE SYSTEMS
+        </footer>
+    </div>
+</body>
+</html>
